@@ -40,10 +40,11 @@ else
     action :enable
   end
 
-  #leave this on by default
-  firewall_rule "ssh" do
-    port 22
-    action :allow
+  if node['firewall']['default_ssh_rule']
+    firewall_rule "ssh" do
+      port 22
+      action :allow
+    end
   end
 
   node['firewall']['rules'].each do |rule_mash|
